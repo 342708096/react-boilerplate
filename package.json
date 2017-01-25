@@ -19,10 +19,13 @@
   },
   "dependencies": {
     "babel-runtime": "6.x",
+    "bootstrap": "^4.0.0-alpha.2",
+    "normalize.css": "^5.0.0",
     "react": "15.x",
     "react-dom": "15.x"
   },
   "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
     "babel-core": "6.x",
     "babel-eslint": "7.x",
     "babel-loader": "6.x",
@@ -44,7 +47,9 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "latest",
     "husky": "^0.12.0",
+    "node-sass": "^4.3.0",
     "open-browser-webpack-plugin": "0.0.3",
+    "sass-loader": "^4.1.1",
     "style-loader": "~0.13.1",
     "validate-commit-msg": "2.x",
     "webpack": "latest",
