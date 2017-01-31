@@ -59,12 +59,8 @@ module.exports = {
         // include: path.resolve(__dirname, 'app'),
         exclude: /(node_modules|bower_components)/,
         use: [
-          'react-hot-loader',
           {
-            loader: 'babel-loader',
-            query: {
-              presets: ['react', 'es2015']
-            }
+            loader: 'babel-loader'
           }
         ]
       }

@@ -3,12 +3,10 @@ const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
-    inline: true,
-    progress: true,
     contentBase: './app',
     port: 9000,
     headers: {
@@ -69,12 +67,8 @@ module.exports = {
         // include: path.resolve(__dirname, 'app'),
         exclude: /(node_modules|bower_components)/,
         use: [
-          'react-hot-loader',
           {
-            loader: 'babel-loader',
-            query: {
-              presets: ['react', 'es2015']
-            }
+            loader: 'babel-loader'
           }
         ]
       }
