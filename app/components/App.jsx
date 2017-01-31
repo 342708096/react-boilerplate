@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './App.scss';
-
 export default () => (
   <div className="container">
     <form name="TGKCForm" noValidate className="col-lg-12" >

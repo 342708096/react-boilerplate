@@ -3,7 +3,7 @@ const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
-  devtool: "source-map",
+  devtool: 'eval-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -16,29 +16,72 @@ module.exports = {
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
     }
   },
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:9000',
-    path.resolve(__dirname, 'app/main.jsx')
-  ],
+  entry: {
+    jsx: path.resolve(__dirname, 'app/main.jsx')
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     filename: './bundle.js'
   },
   module: {
-    loaders: [
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
+    rules: [
       {
-        test: /\.scss$/, include: path.resolve(__dirname, 'app'),
-        // enable module css  'style!css?module&importLoaders...'
-        loader: 'style!css?importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+        test: /\.css$/,
+        // include: path.resolve(__dirname, 'app'),
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+              sourceMap: true
+            }
+          }
+        ]
       },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
+      {
+        test: /\.scss$/,
+        // include: path.resolve(__dirname, 'app'),
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              minimize: true,
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.js[x]?$/,
+        // include: path.resolve(__dirname, 'app'),
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          'react-hot-loader',
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: ['react', 'es2015']
+            }
+          }
+        ]
+      }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.json', '.jsx']
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
