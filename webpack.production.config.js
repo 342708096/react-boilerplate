@@ -15,13 +15,63 @@ module.exports = {
     filename: './bundle.js'
   },
   module: {
-    loaders: [
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
+    rules: [
+      {
+        test: /\.css$/,
+        // include: path.resolve(__dirname, 'app'),
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        // include: path.resolve(__dirname, 'app'),
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              minimize: true,
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              outputStyle: 'expanded',
+              sourceMap: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.js[x]?$/,
+        // include: path.resolve(__dirname, 'app'),
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          'react-hot-loader',
+          {
+            loader: 'babel-loader',
+            query: {
+              presets: ['react', 'es2015']
+            }
+          }
+        ]
+      }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.json', '.jsx']
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
@@ -36,8 +86,7 @@ module.exports = {
       }
     }),
     new CopyWebpackPlugin([
-      { from: './app/index.html', to: 'index.html' },
-      { from: './app/main.css', to: 'main.css' }
+      { from: './app/index.html', to: 'index.html' }
     ])
   ]
 };
