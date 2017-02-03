@@ -1,5 +1,5 @@
 import 'normalize.css/normalize.css';
-import 'bootstrap/scss/bootstrap.scss';
+import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
