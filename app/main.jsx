@@ -3,9 +3,11 @@ import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './components/App';
+import './scss/style.scss';
+
+import Header from './components/NavBar';
 
 ReactDOM.render(
-  <App />,
+  <div ><Header /> <div style={{ height: '2048px' }} ></div></div>,
   document.body.appendChild(document.createElement('div'))
 );
