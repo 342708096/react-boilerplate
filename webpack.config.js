@@ -2,13 +2,15 @@ const webpack = require('webpack');
 const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
+const port = 9999;
+
 module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     contentBase: './app',
-    port: 9000,
+    port,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
@@ -80,6 +82,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:9000' })
+    new OpenBrowserPlugin({ url: `http://localhost:${port}` })
   ]
 };
